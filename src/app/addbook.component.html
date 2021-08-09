@@ -1,0 +1,118 @@
+<div class="bg">
+    <div class="container" *ngIf="!authService.loggedIn" style="margin-top: 100px;">
+        <div class="row">
+            <div class="col-md-12" style="padding-left: 100px;">
+                <h2>
+                    You must be logged in to add a new book!
+                </h2>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class="container bg-dark" *ngIf="authService.loggedIn">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2>
+                    Please enter a new book
+                </h2>
+                <form [formGroup]='addBookForm' (ngSubmit)='onSubmit()'>
+
+                    <div class="form-group">
+                        <label style="color: white;">Enter authors name </label>
+                        <input type="text" placeholder="Please enter the authors name..." id="author" name="author"
+                            class="form-control" formControlName="author" [ngClass]="{ 'error' : isInvalid('author') }">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label style="color: white;">Enter the origin country </label>
+                        <input type="text" placeholder="Please enter the origin Country..." id="country" name="country"
+                            class="form-control" formControlName="country"
+                            [ngClass]="{ 'error' : isInvalid('country') }">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label style="color: white;">Enter an image link </label>
+                        <input type="text" placeholder="Please enter the imageLink..." id="imageLink" name="imageLink"
+                            class="form-control" formControlName="imageLink"
+                            [ngClass]="{ 'error' : isInvalid('imageLink') }">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label style="color: white;">Enter the books language </label>
+                        <input type="text" placeholder="Please enter the books language..." id="language"
+                            name="language" class="form-control" formControlName="language"
+                            [ngClass]="{ 'error' : isInvalid('language') }">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label style="color: white;">Enter wikipedia link</label>
+                        <input type="text" placeholder="Please enter the Wikipedia link for the book..." id="link"
+                            name="link" class="form-control" formControlName="link"
+                            [ngClass]="{ 'error' : isInvalid('link') }">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label style="color: white;">Enter the total amount of pages </label>
+                        <input type="text" placeholder="Please enter the total pages in the book..." id="pages"
+                            name="pages" class="form-control" formControlName="pages"
+                            [ngClass]="{ 'error' : isInvalid('pages') }">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label style="color: white;">Please enter the title of the book </label>
+                        <input type="text" placeholder="Please enter the title of the book..." id="title" name="title"
+                            class="form-control" formControlName="title" [ngClass]="{ 'error' : isInvalid('title') }">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label style="color: white;">Enter the year the book was written </label>
+                        <input type="text" placeholder="Please enter the year the book was written..." id="year"
+                            name="year" class="form-control" formControlName="year"
+                            [ngClass]="{ 'error' : isInvalid('year') }">
+                    </div>
+                    <br>
+                    <h2>
+                        <span *ngIf="isIncomplete()">
+                            You must complete all fields
+                        </span>
+                    </h2>
+                    <button *ngIf="!isIncomplete()" type="submit" class="btn btn-primary">
+                        Submit
+                    </button>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>

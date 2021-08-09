@@ -1,0 +1,112 @@
+<div class="bg">
+    <div class="container" style="margin-top: 50px; padding-left: 15%;">
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <div *ngFor="let book of webService.book | async" class="col-8">
+                    <div class="card text-white bg-dark mb-3">
+                        <!-- displays the books saved image -->
+                        <img src={{book.imageLink}} class="card-img-top">
+                        <div class="card-header  bg-dark">
+                            {{ book.title}}
+                        </div>
+
+                        <div class="card-body">
+                            <p>Oringinated from: {{ book.country}}</p>
+                            <p>Author: {{book.author}}</p>
+                            <p>Language: {{book.language}}</p>
+                            <p>Pages: {{book.pages}}</p>
+                            <p>Year: {{book.year}}</p>
+                        </div>
+                        <div class="card-footer bg-dark">
+                            <!-- links to wikipedia -->
+                            <p> <a href="{{book.link}}" class="btn btn-outline-light">Wikipedia link</a> </p>
+                            <p><button class="remove" (click)='onDelete()' *ngIf="authService.loggedIn"
+                                    [routerLink]="['/books']"> Delete</button></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12" style="padding-left: 100px;">
+                <!-- pagination added to the reviews, limted to 2 reviews per page -->
+                <div class="card bg-dark mb-3 text-white"
+                    *ngFor="let review of webService.reviews_list | async | paginate: { itemsPerPage: 2, currentPage: p}">
+                    <div class="class header">
+                        Review by: {{review.username}}
+                    </div>
+                    <div class="card-body">
+                        {{review.comment}}
+                    </div>
+                    <div class="card footer bg-dark text-white">
+                        Star rating: {{review.stars}}
+                    </div>
+                    <!-- <p><button class ="remove" (click)='onDeleteReview()' *ngIf="authService.loggedIn">Delete Review</button></p> -->
+                </div>
+            </div>
+            <pagination-controls (pageChange)="p = $event" previousLabel="" nextLabel=""></pagination-controls>
+        </div>
+    </div>
+    <div class="class row">
+    </div>
+    <!-- if the user is not logged in they will be prevented from adding a review -->
+    <div class="container bg-dark" *ngIf="authService.loggedIn">
+        <div class="row">
+            <div class="col-md-12" style="padding-left: 100px;">
+                <h2>
+                    Please review this book
+                </h2>
+                <form [formGroup]='reviewForm' (ngSubmit)='onSubmit()'>
+                    <div class="form-group">
+                        <input type="text" placeholder="Please enter your Username..." id="username" name="username"
+                            class="form-control" formControlName="username"
+                            [ngClass]="{ 'error' : isInvalid('username') }">
+                    </div>
+                    <div class="form-group">
+                        <textarea id="comment" placeholder="Please enter your review here..." name="comment" rows="3"
+                            class="form-control" formControlName="comment"
+                            [ngClass]="{ 'error' : isInvalid('comment') }">
+                    </textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="stars" style="color: white;">Please provide a rating (5=best)</label>
+                        <select id="stars" name="stars" class="form-control" formControlName="stars">
+                            <option value="1">1 star</option>
+                            <option value="2">2 stars</option>
+                            <option value="3">3 stars</option>
+                            <option value="4">4 stars</option>
+                            <option value="5">5 stars</option>
+                        </select>
+                    </div>
+                    <!-- will display when data has not been entered -->
+                    <span *ngIf="isIncomplete()">
+                        <h2>
+                        You must complete all fields
+                    </h2>
+                    </span>
+                    <!-- will only display if all data is entered -->
+                    <button *ngIf="!isIncomplete()" type="submit" class="btn btn-primary">
+                        Submit
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- if the user is not logged in this will display -->
+    <div class="container" *ngIf="!authService.loggedIn">
+        <div class="row">
+            <div class="col-md-12" style="padding-left: 100px;">
+                <h2>
+                    Please login to leave a review!
+                </h2>
+            </div>
+        </div>
+    </div>
+</div>
